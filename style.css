@@ -59,6 +59,7 @@ h3 {
 .input {
   width: 90%;
   display: flex;
+  justify-content: center;
 }
 
 #input__ip {
@@ -90,18 +91,47 @@ h3 {
   cursor: pointer;
 }
 
+#btn:hover {
+  background-color: var(--dark-gray);
+}
+
 #map {
   width: 100vw;
   height: 100vw;
   z-index: 100;
 }
 
-@media screen (min-width: 850px) {
+@media (min-width: 850px) {
+  .container {
+    height: 30vh;
+  }
+
   .card {
     flex-direction: row;
+    width: 77%;
+    padding: 1rem;
+  }
+  h3 {
+    text-align: left;
+  }
+
+  .input {
+    text-align: center;
+  }
+
+  #input__ip {
+    width: 35%;
   }
 
   .output__section {
     display: flex;
+    flex-direction: column;
+  }
+
+  .output__txt {
+    text-align: left;
+  }
+  .container {
+    height: 40vh;
   }
 }
