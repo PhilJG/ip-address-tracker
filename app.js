@@ -9,9 +9,19 @@ const ISPOutput = document.querySelector("#output__isp");
 const btn = document.querySelector("#btn");
 
 let IPValue = IPInput.value;
+const IPRegex =
+  /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-const map = L.map("map").setView([0, 0], 1);
-const marker = L.marker([0, 0]).addTo(map);
+const setMap = function () {};
+
+const myIcon = L.icon({
+  iconUrl: "icon-location.svg",
+  iconSize: [32, 40],
+  iconAnchor: [22, 94],
+  popupAnchor: [-3, -76],
+});
+const map = L.map("map").setView([0, 0], 10);
+const marker = L.marker([0, 0], { icon: myIcon }).addTo(map);
 
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -20,13 +30,13 @@ const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const tiles = L.tileLayer(tileUrl, { attribution });
 tiles.addTo(map);
 
-const IPRegex =
-  /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-
 const fetchIPAddress = function () {
   fetch(`https://api.ipify.org?format=json`)
     .then((res) => res.json())
-    .then((data) => (IPInput.value = data.ip));
+    .then((data) => {
+      IPInput.value = data.ip;
+      fetchIPDetails();
+    });
 };
 
 const fetchIPDetails = function () {
@@ -41,6 +51,7 @@ const fetchIPDetails = function () {
       timeOutput.textContent = `UTC ${data.location.timezone}`;
       ISPOutput.textContent = `${data.isp}`;
       marker.setLatLng([`${data.location.lat}`, `${data.location.lng}`]);
+      map.setView([`${data.location.lat}`, `${data.location.lng}`], 13);
     });
 };
 
