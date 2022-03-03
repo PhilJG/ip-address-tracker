@@ -10,7 +10,7 @@ const btn = document.querySelector("#btn");
 
 let IPValue = IPInput.value;
 
-const map = L.map("map").setView([0, 0], 10);
+const map = L.map("map").setView([0, 0], 1);
 const marker = L.marker([0, 0]).addTo(map);
 
 const attribution =
