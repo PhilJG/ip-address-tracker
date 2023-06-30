@@ -39,7 +39,7 @@ const fetchIPAddress = function () {
 
 const fetchIPDetails = function () {
   fetch(
-    `https://geo.ipify.org/api/v2/country,city?apiKey=at_SM7nf8Ww601CicFfwIsuIwIqzobxE&ipAddress=${IPValue}`
+    `https://geo.ipify.org/api/v2/country?apiKey=at_Urd5XxVIJyIlJmvEjrQjRU0EPkRbR&ipAddress=${IPValue}`
   )
     .then((res) => res.json())
     .then(function (data) {
